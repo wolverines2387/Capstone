@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <title>{% block title %}Auction Site{% endblock %}</title>
+    <title>{% block title %}Price Your Rental!{% endblock %}</title>
     <style>
         /* Global Styles */
         body {
@@ -82,7 +82,7 @@
             color: #333;
         }
 
-        .see-auction-button {
+        .price-airbnb-button {
             background-color: #3498db;
             color: #fff;
             border: none;
@@ -93,7 +93,7 @@
             transition: background-color 0.2s;
         }
 
-        .see-auction-button:hover {
+        .price-airbnb-button:hover {
             background-color: #2980b9;
         }
 
@@ -145,7 +145,7 @@
 <body>
     <nav>
         <ul>
-            <li><a href="{% url 'auction_home' %}">Auctions</a></li>
+            <li><a href="{% url 'recomender_home' %}">Get your price!</a></li>
             <li>
                 {% if request.user.is_authenticated %}
                 Welcome, {{ request.user.username }} | <a href="{% url 'logout' %}">Logout</a>
