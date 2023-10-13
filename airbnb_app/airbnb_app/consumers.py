@@ -6,7 +6,7 @@ import json
 
 from django.utils import timezone
 
-class AuctionConsumer(AsyncWebsocketConsumer):
+class RecomenderConsumer(AsyncWebsocketConsumer):
 
     connected_clients = set() 
 
@@ -28,19 +28,19 @@ class AuctionConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
 
         # Check for bid_history request
-        if 'request' in text_data_json and text_data_json['request'] == 'bid_history':
-            all_bids = await self.get_recent_bids(self.product_id)
-            end_time = await self.get_auction_end_time(self.product_id)
+        if 'request' in text_data_json and text_data_json['request'] == 'recomendation_history':
+            all_recomendation = await self.get_recent_recomendation(self.product_id)
+            end_time = await self.get_recomendation_end_time(self.product_id)
 
             end_time_str = end_time.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
             await self.send(json.dumps({
-                'bid_history': all_bids,
+                'bid_history': all_recomendation,
                 'end_time': end_time_str  # Send the end time as a string to the frontend
             }))
-        elif 'request' in text_data_json and text_data_json['request'] == 'current_bid':
-            current_bid_amount = await self.get_current_bid(self.product_id)  # Assuming '1' is the product_id, adjust accordingly
+        elif 'request' in text_data_json and text_data_json['request'] == 'current_recomendation':
+            current_recomendation_amount = await self.get_current_recomendation(self.product_id)  # Assuming '1' is the product_id, adjust accordingly
             await self.send(json.dumps({
-                'current_bid': str(current_bid_amount)
+                'current_bid': str(current_recomendation_amount)
             }))
         else:
             current_time = timezone.now()
